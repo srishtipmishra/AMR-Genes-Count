@@ -1,0 +1,22 @@
+Standard databases:
+DB1: Fasta file with 4000 AMR genes <Name,Read>
+DB2: SNP of these AMR genes
+
+Collected databases:
+DB3: Fastq files of sequence reads.
+DB4: SAM created after alignment of the reads of fastq file
+
+foreach alignment in SAM:
+    rname = alignment.RNAME
+    for gene,snp in DB2_SNP:
+        if rname == gene:
+            snpLocation = gene.getValue() %get location where this gene's polymorphism occurs
+            qname = alignment.QNAME
+            pos = alignment.POS
+            length = alignment.length
+            for reads in db3_fastq:
+                if qname == reads.qname:
+                    check CIGAR to make sure there's a match or mismatch or missing data
+                    if match:
+                        nucleotide = pos + location
+                        verify this with AMR in FASTA file???
